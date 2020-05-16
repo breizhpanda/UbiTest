@@ -9,7 +9,7 @@ namespace UbiTest
     public class DataController : SingletonBehaviour<DataController>
     {
         #pragma warning disable 649
-        [SerializeField] private char[] m_disabledCharacters;
+        [SerializeField] private char[] m_disabledCharacters; // si beaucoup + de characters à bannir, j'aurais préféré les exposer dans une string, et les split en un private Ienumerable. Ou encore les stocker dans un JSON.
         [SerializeField] private string m_defaultValue;
         [SerializeField] private int m_valueCharacterLimit;
         #pragma warning restore 649
