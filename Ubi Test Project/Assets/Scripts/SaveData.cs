@@ -11,6 +11,11 @@ namespace UbiTest
     {
         public string value;
 
+        public SaveData(string defaultValue)
+        {
+            value = defaultValue;
+        }
+
         public static SaveData CreateFromJSON(string jsonString)
         {
             return JsonUtility.FromJson<SaveData>(jsonString);

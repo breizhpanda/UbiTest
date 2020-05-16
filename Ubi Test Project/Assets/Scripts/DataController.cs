@@ -8,9 +8,13 @@ namespace UbiTest
 {
     public class DataController : SingletonBehaviour<DataController>
     {
+        #pragma warning disable 649
+        [SerializeField] private char[] m_disabledCharacters;
+        [SerializeField] private string m_defaultValue;
+        #pragma warning restore 649
+
         private string m_saveDataPath;
         private SaveData m_saveData;
-
         public SaveData saveData { get { return m_saveData; } }
 
         protected override void Awake()
@@ -26,7 +30,7 @@ namespace UbiTest
             if (!File.Exists(m_saveDataPath))
             {
                 Debug.Log("fichiers de sauvegarde non trouvés, création d'un nouveau fichier");
-                return new SaveData();
+                return new SaveData(m_defaultValue);
             }
             else
             {
@@ -36,6 +40,12 @@ namespace UbiTest
                     return SaveData.CreateFromJSON(jsonString);
                 }
             }
+        }
+
+        public void EraseValue()
+        {
+            m_saveData.value = m_defaultValue;
+            Save();
         }
 
         private void Save()
@@ -49,8 +59,20 @@ namespace UbiTest
 
         public void SaveNewValue(string value)
         {
+            if (!IsValueValid(value))
+                return;
             m_saveData.value = value;
             Save();
+        }
+
+        public bool IsValueValid(string value)
+        {
+            foreach(char c in m_disabledCharacters)
+            {
+                if (value.IndexOf(c) != -1)
+                    return false;
+            }
+            return true;
         }
     }
 }
