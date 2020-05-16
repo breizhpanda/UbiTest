@@ -13,13 +13,14 @@ namespace UbiTest
         [SerializeField] private Text m_invalidInputmessage;
         [SerializeField] private Button m_saveButton;
         [SerializeField] private Button m_loadButton;
-#pragma warning restore 649
+        #pragma warning restore 649
 
         private DataController m_dataController;
         
         void Start()
         {
             m_dataController = DataController.Instance;
+            m_inputField.characterLimit = m_dataController.valueCharacterLimit;
             m_inputField.onValueChanged.AddListener(OnInputFieldValueChanged); 
         }
 

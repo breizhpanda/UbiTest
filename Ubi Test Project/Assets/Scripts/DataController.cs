@@ -11,11 +11,13 @@ namespace UbiTest
         #pragma warning disable 649
         [SerializeField] private char[] m_disabledCharacters;
         [SerializeField] private string m_defaultValue;
+        [SerializeField] private int m_valueCharacterLimit;
         #pragma warning restore 649
 
         private string m_saveDataPath;
         private SaveData m_saveData;
         public SaveData saveData { get { return m_saveData; } }
+        public int valueCharacterLimit { get { return m_valueCharacterLimit; } }
 
         protected override void Awake()
         {
